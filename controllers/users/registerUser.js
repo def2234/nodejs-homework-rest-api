@@ -3,6 +3,7 @@ const { User, userRegisterSchema } = require("../../models/users");
 require("dotenv").config();
 
 const bcrypt = require("bcryptjs");
+const gravatar = require("gravatar");
 
 const { HttpError } = require("../../helpers");
 
@@ -22,8 +23,14 @@ const signUp = async (req, res, next) => {
       throw HttpError(400, error.message);
     }
 
+    const avatarUrl = gravatar.url(email);
+
     const hashPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ ...dataUser, password: hashPassword });
+    const newUser = await User.create({
+      ...dataUser,
+      password: hashPassword,
+      avatarUrl,
+    });
 
     res.status(201).json({
       name: dataUser.name,

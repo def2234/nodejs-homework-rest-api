@@ -3,5 +3,13 @@ const signIn = require("./loginUser");
 const getCurrent = require("./getCurrentUser");
 const logout = require("./logOutUser");
 const changeSubscrition = require("./changeSubscription");
+const uploadAvatar = require("./uploadAvatar");
 
-module.exports = { signUp, signIn, getCurrent, logout, changeSubscrition };
+module.exports = {
+  signUp,
+  signIn,
+  getCurrent,
+  logout,
+  changeSubscrition,
+  uploadAvatar,
+};
