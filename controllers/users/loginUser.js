@@ -1,8 +1,4 @@
-const {
-  User,
-
-  userLoginSchema,
-} = require("../../models/users");
+const { User, userLoginSchema } = require("../../models/users");
 
 require("dotenv").config();
 
@@ -24,6 +20,10 @@ const signIn = async (req, res, next) => {
 
     if (!loginUser) {
       throw HttpError(401, "Email or password is wrong");
+    }
+
+    if (!loginUser.verify) {
+      throw HttpError(401, "Unauthorized");
     }
 
     const { error } = userLoginSchema.validate(dataUser);

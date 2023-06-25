@@ -32,6 +32,17 @@ const userLoginSchema = Joi.object({
   password: Joi.string().required().min(8),
 });
 
+const userEmailSchema = Joi.object({
+  email: Joi.string()
+    .required()
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "co", "uk"] },
+    })
+    .pattern(emailRegex)
+    .required(),
+});
+
 const subscriptionSchema = Joi.object({
   subscription: Joi.string()
     .valid(...subscription)
@@ -66,6 +77,14 @@ const userSchema = new Schema(
       type: String,
       require: true,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationCode: {
+      type: String,
+      require: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -80,4 +99,5 @@ module.exports = {
   userRegisterSchema,
   userLoginSchema,
   subscriptionSchema,
+  userEmailSchema,
 };
