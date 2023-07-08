@@ -7,6 +7,8 @@ const {
   logout,
   changeSubscrition,
   uploadAvatar,
+  verify,
+  resendVerify,
 } = require("../../controllers/users");
 
 const router = express.Router();
@@ -18,6 +20,10 @@ router.post("/signup", signUp);
 router.post("/signin", signIn);
 
 router.get("/current", authenticate, getCurrent);
+
+router.get("/verify/:verificationCode", verify);
+
+router.post("/verify", resendVerify);
 
 router.post("/logout", authenticate, logout);
 
